@@ -1,0 +1,13 @@
+apiVersion: user.enmasse.io/v1beta1
+kind: MessagingUser
+metadata:
+  name: spring-boot-camel-amq.client
+spec:
+  username: user1
+  authentication:
+    type: password
+    password: dGVzdA==
+  authorization:
+    - addresses: ["incomingOrders","topic*"]
+      operations: ["send", "recv"]
+

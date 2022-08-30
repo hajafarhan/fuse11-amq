@@ -1,0 +1,35 @@
+spec:
+  template:
+    spec:
+      containers:
+        -
+          resources:
+            requests:
+              cpu: "0.2"
+              memory: 256Mi
+            limits:
+              cpu: "1.0"
+              memory: 256Mi
+          env:
+          - name: AMQ_CAMEL_SERVICE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: spring-boot-camel-amq-config
+                key: service.host
+          - name: AMQ_CAMEL_SERVICE_PORT_AMQPS
+            valueFrom:
+              configMapKeyRef:
+                name: spring-boot-camel-amq-config
+                key: service.port.amqps
+          - name: AMQ_CAMEL_SERVICE_PORT_AMQP
+            valueFrom:
+              configMapKeyRef:
+                name: spring-boot-camel-amq-config
+                key: service.port.amqp
+          - name: AMQ_CAMEL_PARAMETERS
+            value: transport.trustAll=true&transport.verifyHost=false&amqp.idleTimeout=120000&amqp.saslMechanisms=PLAIN
+          - name: AMQ_CAMEL_PROTOCOL
+            valueFrom:
+              configMapKeyRef:
+                name: spring-boot-camel-amq-protocol
+                key: service.protocol
